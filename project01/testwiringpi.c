@@ -15,18 +15,11 @@
 #include <wiringPi.h>
 #include <stdio.h>
 
-#define LEDPIN  0  // LEDPIN is wiring Pi Pin #0 or physical pin #11 or GPIO #17
-
-void turn_on (int gpio) {
-	digitalWrite (gpio, LOW);
-}
-
-void turn_off (int gpio) {
-	digitalWrite (gpio, HIGH);
-}
 
 int main ()
 {
+        // LEDPIN is wiring Pi Pin #0 or physical pin #11 or GPIO #17
+        const int LEDPIN = 0;
 	int iCount = 10;
 
 	if (wiringPiSetup() == -1) {
@@ -36,17 +29,18 @@ int main ()
 
 	pinMode (WPI_MODE_PINS, OUTPUT);
 	
+	digitalWrite (LEDPIN, LOW);  // make sure the LED is off
 	while (iCount > 0) {
-		digitalWrite (LEDPIN, LOW);  // turn the LED on
-		printf ("LED On ... "); fflush (stdout);
+		digitalWrite (LEDPIN, HIGH);  // turn the LED on
+		printf ("%d LED On ... ", iCount); fflush (stdout);
 		delay (1000);
-		digitalWrite (LEDPIN, HIGH); // turn the LED off
+		digitalWrite (LEDPIN, LOW); // turn the LED off
 		printf ("LED Off\n");
 		delay (500);
 		iCount--;
 	}
 
-	digitalWrite (LEDPIN, HIGH);  // make sure the LED is off
+	digitalWrite (LEDPIN, LOW);  // make sure the LED is off
 	delay (500);
 	return 0;
 }
