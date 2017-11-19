@@ -16,12 +16,12 @@
 
 void turn_on (int pin)
 {
-	digitalWrite (pin, LOW);
+	digitalWrite (pin, HIGH);
 }
 
 void turn_off (int pin)
 {
-	digitalWrite (pin, HIGH);
+	digitalWrite (pin, LOW);
 }
 
 
@@ -31,20 +31,27 @@ void turn_off (int pin)
 // to indicate the end of the list.
 void setup_pins (int *pin_list)
 {
+	pinMode (WPI_MODE_PINS, OUTPUT);
 	for (; *pin_list >= 0; pin_list++) {
-		pinMode (*pin_list, OUTPUT);
 		turn_off (*pin_list);
 	}
 }
 
 int main ()
 {
-	int pin_list[] = {0, 1};
+	int pin_list[] = {0, -1};
 
 	if (wiringPiSetup() == -1) {
 		printf ("Setup wiringPi failed! Check Setup.\n");
 		return -1;
 	}
+
+	setup_pins (pin_list);
+
+	turn_on (pin_list[0]);
+	delay (2000);
+	turn_off (pin_list[0]);
+	delay(500);
 
 
 	return 0;
