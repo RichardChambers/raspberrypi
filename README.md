@@ -13,6 +13,8 @@ Each project is in a folder within this repository.
 The project source code is in the C or C++ programming language and uses
 the wiringPi library in order to interface with the Raspberry Pi GPIO board.
 
+WARNING: Be careful about the pins connected and used in experiments. The Raspberry Pi GPIO board has both 3.3v and 5v power pins. You can overload the I/O pins, which are 3.3v, by connecting them accidently to the 5v pin and render your Raspberry Pi dead.
+
 The library was already part of my Raspbian build and I did not need to
 install it. You can check if it is already installed by using the following
 command line:
