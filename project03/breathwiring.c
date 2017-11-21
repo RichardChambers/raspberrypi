@@ -2,8 +2,13 @@
  *   Test program for Raspberry Pi from URL
  *     http://osoyoo.com/2017/06/26/pi3-breathing-led/
  *
- *   This test program performs a test of a simple LED wiring
- *   that is connected to GPIO #17 to turn an LED on and off.
+ *   This test program performs a test of a simple LED circuit
+ *   that is connected to GPIO #18 to exercise the PWM by changing
+ *   the brightness of an LED.
+ *
+ *   WARNING: running this program must be done with sudo in order for
+ *            the wiringPi library to allow access to the PWM functionality
+ *            of GPIO #18.
  *
  *   Compile with the following command line:
  *     cc breathwiring.c -lwiringPi
@@ -18,37 +23,45 @@
 
 int main ()
 {
-        // LEDPIN is wiring Pi Pin #1 or GPIO #18
+        // LEDPIN is wiringPi Pin #1 or GPIO #18
 	// we choose this pin since it supports PWM as
 	// PWM is not supported by any other GPIO pins.
         const int LEDPIN = 1;
-	int iCount = 10;       // do the breathing this many times
-	int iBrightness;       // brightness value from 0 to 100.
+	const int BRIGHTSTART = 0;
+	const int BRIGHTEND  = 100;
+	const int BRIGHTSTEP = 4;
+
+	int iCount = 2;       // do the breathing this many times
+	int iBrightness;      // brightness value.
 
 	if (wiringPiSetup() == -1) {
 		printf ("Setup wiringPi Failed!\n");
 		return -1;
 	}
 
+	printf ("Reminder: this program must be run with sudo.\n");
 	pinMode (LEDPIN, PWM_OUTPUT);
-	for (iCount *= 2, iBrightness = 0; iCount >= 0; ) {
+	pwmSetMode(PWM_MODE_MS);
+	iCount *= 2;
+	for (iBrightness = BRIGHTSTART; iCount >= 0; ) {
 		pwmWrite (LEDPIN, iBrightness);
-		delay (200);
+		delay (500);
 		if (iCount % 2) {
 			// if iCount is even then we are going up on brightness
-			iBrightness += 4;
-			if (iBrightness > 100) {
-				iBrightness = 100;
+			iBrightness += BRIGHTSTEP;
+			if (iBrightness > BRIGHTEND) {
+				iBrightness = BRIGHTEND;
 				iCount--;
 			}
 		} else {
 			// if iCount is odd then we are going down on brightness
-			iBrightness -= 4;
-			if (iBrightness < 0) {
-				iBrightness = 0;
+			iBrightness -= BRIGHTSTEP;
+			if (iBrightness < BRIGHTSTART) {
+				iBrightness = BRIGHTSTART;
 				iCount--;
 			}
 		}
+		printf (" iCount %d  iBrightness %d\n", iCount, iBrightness);
 	}
 
 	return 0;
