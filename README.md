@@ -45,6 +45,8 @@ other boards and several different programming languages.
 
 Documentation on the Raspberry Pi GPIO board seems to be a bit sparse however here are some resources.
 
+First of all a YouTube 19 minute video: Raspberry Pi: Using GPIO Inputs https://www.youtube.com/watch?v=NAl-ULEattw
+
 http://www.mosaic-industries.com/embedded-systems/microcontroller-projects/raspberry-pi/gpio-pin-electrical-specifications
 
 http://www.susa.net/wordpress/2012/06/raspberry-pi-relay-using-gpio/
