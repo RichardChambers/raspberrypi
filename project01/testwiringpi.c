@@ -15,17 +15,26 @@
 
 #include <wiringPi.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 
-int main ()
+int main (int argc, char *argv[])
 {
         // LEDPIN is wiring Pi Pin #0 or physical pin #11 or GPIO #17
-        const int LEDPIN = 0;
+        int LEDPIN = 0;
 	int iCount = 10;
 
 	if (wiringPiSetup() == -1) {
 		printf ("Setup wiringPi Failed!\n");
 		return -1;
+	}
+
+	// allow a command line argument to change the target pin from
+	// the default of GPIO17. The numbering system is the wiringPiSetup()
+	// numbering and not the GPIO numbering.
+	if (argc > 1) {
+		LEDPIN = atoi (argv[1]);
+		printf ("GPIO pin changed to %d\n", LEDPIN);
 	}
 
 	pinMode (LEDPIN, OUTPUT); // set the pin function
