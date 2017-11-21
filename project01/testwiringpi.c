@@ -2,8 +2,9 @@
  *   Test program for Raspberry Pi from URL
  *     http://osoyoo.com/2017/06/22/intall-wiringpi/
  *
- *   This test program performs a test of a simple LED wiring
- *   that is connected to GPIO #17 to turn an LED on and off.
+ *   This test program performs a test of a simple LED circuit
+ *   that is connected from GPIO #17 through an LED and a 200 ohm
+ *   resistor to ground. This test program turns an LED on and off.
  *
  *   Compile with the following command line:
  *     cc testwiringpi.c -lwiringPi
@@ -27,7 +28,7 @@ int main ()
 		return -1;
 	}
 
-	pinMode (WPI_MODE_PINS, OUTPUT);
+	pinMode (LEDPIN, OUTPUT); // set the pin function
 	
 	digitalWrite (LEDPIN, LOW);  // make sure the LED is off
 	while (iCount > 0) {
