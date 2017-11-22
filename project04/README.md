@@ -1,6 +1,6 @@
 
 Raspberry Pi Starter Kit Lesson 7: Raspberry Pi Button Control LED
-  http://www.osoyoo.com/2017/06/27/raspberry-pi-starter-kei-lesson-7/
+  http://www.osoyoo.com/2017/06/27/raspberry-pi-starter-kit-lesson-7/
 
 This lesson combines two simple circuits which provide a button as an input
 source to the Raspberry Pi and an LED to light or not depending on the
