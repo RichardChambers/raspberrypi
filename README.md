@@ -8,12 +8,19 @@ being used for these projects.
 See URL:
   http://osoyoo.com/2017/07/13/raspberry-pi-3-starter-learning-kit-introduction/ 
 
-Each project is in a folder within this repository.
+The RPi Hub on eLinux.org has a ton of information https://elinux.org/RPi_Hub
+
+Each project stored within this repository is in a folder with a README.md file. There are also pages in the repository wiki.
 
 The project source code is in the C or C++ programming language and uses
 the wiringPi library in order to interface with the Raspberry Pi GPIO board.
 
 WARNING: Be careful about the pins connected and used in experiments. The Raspberry Pi GPIO board has both 3.3v and 5v power pins. You can overload the I/O pins, which are 3.3v, by connecting them accidently to the 5v pin and render your Raspberry Pi dead.
+
+Also see this article about using GPIO.cleanup() of python on program exit.
+  http://raspi.tv/2013/rpi-gpio-basics-3-how-to-exit-gpio-programs-cleanly-avoid-warnings-and-protect-your-pi
+
+Unfortunately the wiringPi library does not offer such a function however recommendations are to set any GPIO pins used to an INPUT state before exiting. https://raspberrypi.stackexchange.com/questions/44807/wiringpi-cleanup-command
 
 A handy resistor value calculator which determines resistor value by the color bands selected. https://www.allaboutcircuits.com/tools/resistor-color-code-calculator/
 
