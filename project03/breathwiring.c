@@ -39,7 +39,8 @@ int main ()
 		return -1;
 	}
 
-	printf ("Reminder: this program must be run with sudo.\n");
+	printf ("Reminder: this program must be run with sudo. Delay 5 seconds.\n");
+	delay (5000);
 	pinMode (LEDPIN, PWM_OUTPUT);
 	pwmSetMode(PWM_MODE_MS);
 	iCount *= 2;
@@ -63,6 +64,13 @@ int main ()
 		}
 		printf (" iCount %d  iBrightness %d\n", iCount, iBrightness);
 	}
+
+	// cleanup the environment. set each pin to low
+	// and set the mode to INPUT. These steps make sure
+	// the equipment is safe to manipulate and prevents
+	// possible short and equipment damage from energized pin.
+	pinMode(LEDPIN, INPUT);
+	digitalWrite (LEDPIN, LOW);
 
 	return 0;
 }
