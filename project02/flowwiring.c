@@ -104,5 +104,17 @@ int main (int argc, char *argv[])
 		}
 	}
 
+	// cleanup the environment. set each pin to low
+	// and set the mode to INPUT. These steps make sure
+	// the equipment is safe to manipulate and prevents
+	// possible short and equipment damage from energized pin.
+	{
+		int i;
+		for (i = 0; pin_list[i] >= 0; i++) {
+			digitalWrite (pin_list[i], LOW);
+			pinMode(pin_list[i], INPUT);
+		}
+	}
+
 	return 0;
 }
