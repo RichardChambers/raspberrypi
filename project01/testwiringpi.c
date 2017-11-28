@@ -50,7 +50,10 @@ int main (int argc, char *argv[])
 		iCount--;
 	}
 
+	// clean up the GPIO resources we have been using.
+	// make sure that things are back to a good state before exit.
 	digitalWrite (LEDPIN, LOW);  // make sure the LED is off
+	pinMode (LEDPIN, INPUT);     // set the pin function 
 	delay (500);
 	return 0;
 }
