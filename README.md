@@ -20,3 +20,8 @@ Thus far I have seen GPIO interfaces for python, JavaScript, and Lua in addition
 WARNING: Be careful about the pins connected and used in experiments. The Raspberry Pi GPIO board has both 3.3v and 5v power pins. You can overload the I/O pins, which are 3.3v, by connecting them accidently to the 5v pin and render your Raspberry Pi dead.
 
 See the Wiki page about the Broadcom board and the GPIO interface.
+
+## Various notes
+
+Remove After Washing label on Piezo buzzer - https://electronics.stackexchange.com/questions/98556/remove-after-washing-on-piezo-buzzer
+
