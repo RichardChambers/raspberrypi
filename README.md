@@ -25,3 +25,19 @@ See the Wiki page about the Broadcom board and the GPIO interface.
 
 Remove After Washing label on Piezo buzzer - https://electronics.stackexchange.com/questions/98556/remove-after-washing-on-piezo-buzzer
 
+## Additional technologies to investigate
+
+### Communication protocols
+
+#### MQTT
+
+MQTT Protocol Overview -Beginners Guide http://www.steves-internet-guide.com/mqtt/
+
+MQTT 101 – How to Get Started with the lightweight IoT Protocol https://www.hivemq.com/blog/how-to-get-started-with-mqtt
+
+Getting started with MQTT https://dzone.com/refcardz/getting-started-with-mqtt
+
+RabbitMQ https://www.rabbitmq.com/
+
+VerneMQ https://vernemq.com/
+
