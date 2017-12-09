@@ -27,6 +27,7 @@
  
 char *usage = "Usage: mcp3008 all|analogChannel[1-8] [-l] [-ce1] [-d]\n\
        -l   = load SPI driver,  default: do not load\n\
+       -b   = GPIO #18 connected to an LED. sudo required.\n\
        -ce1  = spi analogChannel 1, default:  0\n\
        -d   = differential analogChannel input, default: single ended";
  
@@ -92,9 +93,14 @@ void print_info()
 
 int main (int argc, char *argv [])
 {
+    // LEDPIN is wiringPi Pin #1 or GPIO #18
+    // we choose this pin since it supports PWM as
+    // PWM is not supported by any other GPIO pins.
+    const int LEDPIN = 1;
     int loadSpi = 0;        // default is to not load the SPI driver
     int analogChannel = 0;  // default is to display all of the MCP3008 channels
     int spiChannel = 0;     // default is to use SPI channel 0 on the Raspberry Pi
+    int bBright = 0;        // default for brightness project is off.
     int channelConfig = CHAN_CONFIG_SINGLE;
 
     print_info();
@@ -103,6 +109,7 @@ int main (int argc, char *argv [])
         fprintf (stderr, "\n%s\n", usage) ;
         return 1 ;
     }
+
 
     if((strcasecmp (argv [1], "all") == 0) )
         argv[1] = "0";
@@ -122,6 +129,8 @@ int main (int argc, char *argv [])
             spiChannel = 1;
         else if (strcasecmp (argv [i], "-d") == 0 || strcasecmp (argv [i], "-diff") == 0)
             channelConfig = CHAN_CONFIG_DIFF;
+        else if (strcasecmp (argv [i], "-b") == 0 || strcasecmp (argv [i], "-bright") == 0)
+            bBright = 1;
     }
 
     //
@@ -135,6 +144,12 @@ int main (int argc, char *argv [])
         }
     }
 
+    if (bBright) {
+        printf (" sudo needed to run this. waiting 7 seconds for control-C.\n");
+        delay (7000);
+    }
+
+
     if (wiringPiSetup() == -1) {
         printf ("Setup wiringPi Failed!\n");
         return -1;
@@ -146,13 +161,31 @@ int main (int argc, char *argv [])
         exit (EXIT_FAILURE) ;
     }
 
+
     //
     if (analogChannel > 0) {
-        // a specific channel on the MCP3008 was requested so read only that channel.
-        printf("MCP3008(CE%d,%s): analogChannel %d = %d\n", spiChannel,
-               (channelConfig == CHAN_CONFIG_SINGLE)
-                   ? "single-ended" : "differential", analogChannel,
-               myAnalogRead(spiChannel, channelConfig, analogChannel-1));
+        int  iLoop = 0;
+
+        if (bBright) {
+            pinMode (LEDPIN, PWM_OUTPUT);
+            pwmSetMode(PWM_MODE_MS);
+
+            iLoop = 20;
+        }
+
+	do {
+            // a specific channel on the MCP3008 was requested so read only that channel.
+            printf("MCP3008(CE%d,%s): analogChannel %d = %d\n", spiChannel,
+                   (channelConfig == CHAN_CONFIG_SINGLE)
+                       ? "single-ended" : "differential", analogChannel,
+                   myAnalogRead(spiChannel, channelConfig, analogChannel-1));
+            if (iLoop) {
+                int iBrightness = myAnalogRead(spiChannel, channelConfig, analogChannel - 1);
+                pwmWrite (LEDPIN, iBrightness);
+                delay (3000);
+                iLoop--;
+            }
+	} while (iLoop > 0);
     } else {
         // iterate over all channels of the MCP3008. There are 8 channels available.
         for (i = 0; i < 8; i++) {
@@ -164,6 +197,14 @@ int main (int argc, char *argv [])
     }
 
     close (myFd) ;
+
+    // cleanup the environment. set each pin to low
+    // and set the mode to INPUT. These steps make sure
+    // the equipment is safe to manipulate and prevents
+    // possible short and equipment damage from energized pin.
+    pinMode(LEDPIN, INPUT);
+    digitalWrite (LEDPIN, LOW);
+
     return 0;
 }
 
