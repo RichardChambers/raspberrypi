@@ -10,3 +10,9 @@ This introductory lesson is on how to hook up the MCP3008 to the Raspberry Pi. T
 the ADC are GND, which should return a digital value of zero, and the 3.3v rail, which should
 return the max value of 1023, and which is the same as the reference voltage that is also tied
 to the 3.3v rail.
+
+## Online resources
+
+Interfacing an SPI ADC (MCP3008) chip to the Raspberry Pi using C++ (spidev
+
+   http://hertaville.com/interfacing-an-spi-adc-mcp3008-chip-to-the-raspberry-pi-using-c.html
