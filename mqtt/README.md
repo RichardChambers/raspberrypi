@@ -33,7 +33,11 @@ by using apt-get as in:
 
 sudo apt-get install mosquitto mosquitto-clients
 
-To get the development packages use:
+To get the development packages for Mosquitto C development (header and library files) use:
+
+sudo apt-get install libmosquitto-dev
+
+To get the development packages for Mosquitto plug-in development use:
 
 sudo apt-get install mosquitto-dev
 
