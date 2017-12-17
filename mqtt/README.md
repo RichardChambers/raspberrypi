@@ -44,3 +44,11 @@ sudo apt-get install mosquitto-dev
 Setting up a local MQTT broker on the Raspberry Pi https://arduinodiy.wordpress.com/2017/02/04/setting-up-a-local-mqtt-broker-on-the-raspberry-pi/
 
 Raspberry Pi as a MQTT server https://lowvoltage.github.io/2017/07/13/Raspberry-Pi-MQTT-Server
+
+### JSON text messages
+
+As MQTT sends and receives text, using JSON with MQTT seems a natural fit.
+
+The FastJSON development library can be installed using apt-get.
+
+sudo apt-get install libfastjson-dev
