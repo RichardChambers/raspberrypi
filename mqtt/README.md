@@ -10,6 +10,13 @@ can contact in order to subscribe to a data source. Clients send messages to the
 which then repeats the message to all other clients which have subscribed to that
 message channel.
 
+The mosquitto utilities package has two applications that can assist with testing after
+the install of mosquitto as well as to test you own applications. The most basic test
+is to use these utilities to check after the install of mosquitto. You can use each of
+these utilities running in its own terminal window for testing.
+ - mosquitto_sub -t "topic/test"
+ - mosquitto_pub -t "topic/test"
+
 MQTT is one of several types of publish/subscribe messaging protocols. Some messaging
 protocols are heavier than MQTT offering more services. The following article provides
 an overview of three of the most commonly used protocols: AMQP, MQTT, and STOMP.
@@ -25,6 +32,9 @@ See as well the following:
  - Practical MQTT with Paho https://www.infoq.com/articles/practical-mqtt-with-paho
  - MQTT community wiki in GitHub https://github.com/mqtt/mqtt.github.io/wiki
  - Adafruit Message Queue Telemetry Transport https://learn.adafruit.com/adafruit-io/mqtt-api
+ 
+ For explorations into the underlying MQTT protocol see the following:
+  - IoT – MQTT Publish and Subscriber C Code https://blog.feabhas.com/2012/04/iot-mqtt-publish-and-subscriber-c-code/
 
 ### Available packages for MQTT
 
