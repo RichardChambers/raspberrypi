@@ -188,29 +188,31 @@ int main (int argc, char *argv [])
             pinMode (LEDPIN, PWM_OUTPUT);
             pwmSetMode(PWM_MODE_MS);
 
+	    pwmSetClock (80);    // clock divsor so no visible flicker
+	    pwmSetRange (1024);  // same 10 bit range as myAnalogRead()
+
             iLoop = 20;
         }
 
 	do {
             // a specific channel on the MCP3008 was requested so read only that channel.
+            int iLevel = myAnalogRead(spiChannel, channelConfig, analogChannel - 1);
             printf("MCP3008(CE%d,%s): analogChannel %d = %d\n", spiChannel,
                    (channelConfig == CHAN_CONFIG_SINGLE)
                        ? "single-ended" : "differential", analogChannel,
-                   myAnalogRead(spiChannel, channelConfig, analogChannel-1));
+                   iLevel);
             if (iLoop) {
                 if (bBright) {
                     // -b project so set the LED illumination proportional to the input voltage
                     // detected by the ADC as modified by a potentiometer.
-                    int iBrightness = myAnalogRead(spiChannel, channelConfig, analogChannel - 1);
-                    pwmWrite (LEDPIN, iBrightness);
+                    pwmWrite (LEDPIN, iLevel);
                 }
                 if (bPhoto) {
                     // -p project so set the LED illumination inversely proportional to the input
                     // voltage detected by the ADC as modified by the photoresistor.
-                    int iPhoto = myAnalogRead(spiChannel, channelConfig, analogChannel - 1);
-                    pwmWrite (LEDPIN, 1023 - iPhoto);
+                    pwmWrite (LEDPIN, 1023 - iLevel);
                 }
-                delay (3000);
+                delay (2000);
                 iLoop--;
             }
 	} while (iLoop > 0);
