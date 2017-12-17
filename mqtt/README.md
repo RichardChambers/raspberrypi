@@ -49,6 +49,8 @@ Raspberry Pi as a MQTT server https://lowvoltage.github.io/2017/07/13/Raspberry-
 
 As MQTT sends and receives text, using JSON with MQTT seems a natural fit.
 
-The FastJSON development library can be installed using apt-get.
+The FastJSON development library can be installed using apt-get. See https://github.com/rsyslog/libfastjson
 
 sudo apt-get install libfastjson-dev
+
+There is also GLIB JSON https://wiki.gnome.org/Projects/JsonGlib
