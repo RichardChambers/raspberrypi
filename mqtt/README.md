@@ -24,6 +24,7 @@ See as well the following:
  - MQTT and CoAP, IoT Protocols https://www.eclipse.org/community/eclipse_newsletter/2014/february/article2.php
  - Practical MQTT with Paho https://www.infoq.com/articles/practical-mqtt-with-paho
  - MQTT community wiki in GitHub https://github.com/mqtt/mqtt.github.io/wiki
+ - Adafruit Message Queue Telemetry Transport https://learn.adafruit.com/adafruit-io/mqtt-api
 
 ### Available packages for MQTT
 
