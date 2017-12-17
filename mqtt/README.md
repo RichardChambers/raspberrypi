@@ -19,27 +19,34 @@ https://blogs.vmware.com/vfabric/2013/02/choosing-your-messaging-protocol-amqp-m
 
 See as well the following:
 
-All About Messaging Protocols: What Are the Differences? http://www.eejournal.com/article/20150420-protocols/
-
-IoT Standards and Protocols https://www.postscapes.com/internet-of-things-protocols/
-
-MQTT and CoAP, IoT Protocols https://www.eclipse.org/community/eclipse_newsletter/2014/february/article2.php
+ - All About Messaging Protocols: What Are the Differences? http://www.eejournal.com/article/20150420-protocols/
+ - IoT Standards and Protocols https://www.postscapes.com/internet-of-things-protocols/
+ - MQTT and CoAP, IoT Protocols https://www.eclipse.org/community/eclipse_newsletter/2014/february/article2.php
+ - Practical MQTT with Paho https://www.infoq.com/articles/practical-mqtt-with-paho
+ - MQTT community wiki in GitHub https://github.com/mqtt/mqtt.github.io/wiki
 
 ### Available packages for MQTT
 
 There are a number of different open source MQTT product offerings available. Mosquitto seems to be most
-commonly used. It appears that most recently Mosquitto is a standard Raspbian install and is available
+commonly used. Eclipse Paho is also frequently mentioned.
+
+See the following documentation resources:
+ - Mosquitto man pages from Eclipse Foundation https://www.eclipse.org/mosquitto/man/mosquitto-8.php
+ - How to install and secure (Ubuntu) from DigitalOcean https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-the-mosquitto-mqtt-messaging-broker-on-ubuntu-16-04
+ - Writing an MQTT client C for ActiveMQ http://kevinboone.net/mosquitto-test.html
+ 
+It appears that most recently Mosquitto is a standard Raspbian install and is available
 by using apt-get as in:
 
-sudo apt-get install mosquitto mosquitto-clients
+ - sudo apt-get install mosquitto mosquitto-clients
 
 To get the development packages for Mosquitto C development (header and library files) use:
 
-sudo apt-get install libmosquitto-dev
+ - sudo apt-get install libmosquitto-dev
 
 To get the development packages for Mosquitto plug-in development use:
 
-sudo apt-get install mosquitto-dev
+ - sudo apt-get install mosquitto-dev
 
 Setting up a local MQTT broker on the Raspberry Pi https://arduinodiy.wordpress.com/2017/02/04/setting-up-a-local-mqtt-broker-on-the-raspberry-pi/
 
@@ -51,6 +58,6 @@ As MQTT sends and receives text, using JSON with MQTT seems a natural fit.
 
 The FastJSON development library can be installed using apt-get. See https://github.com/rsyslog/libfastjson
 
-sudo apt-get install libfastjson-dev
+ - sudo apt-get install libfastjson-dev
 
 There is also GLIB JSON https://wiki.gnome.org/Projects/JsonGlib
