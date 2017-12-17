@@ -9,3 +9,6 @@
 mqtttest: mqtttest.c
 	cc -o mqtttest mqtttest.c -lmosquitto -lfastjson
 
+mqttpublish: mqttpublish.c
+	cc -o mqttpublish mqttpublish.c -lmosquitto -lfastjson -lpthread -lwiringPi
+
