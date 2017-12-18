@@ -50,9 +50,24 @@ int iswitch (char **arg)
 
 void func(struct mosquitto *mosq, void *userdata, const struct mosquitto_message *m)
 {
-    char *ud = (char *)userdata;
+	char *ud = (char *)userdata;
+	fjson_object *newObj = NULL;
+	fjson_object *o = NULL;
+	char  *field = "count";
+	int   iCount = -1;
+	int   iLevel = -1;
 
-    printf("%s -> %s %s\n", ud, m->topic, m->payload);
+	newObj = fjson_tokener_parse (m->payload);
+	if (!fjson_object_object_get_ex(newObj, field, &o)) {
+		printf("Field %s does not exist\n", field);
+	} else {
+
+		printf (" new_obj.to_string()=%s  \"%s\" = %d\n", fjson_object_to_json_string(newObj),
+			field, fjson_object_get_int(o));
+	}
+
+	fjson_object_put(newObj);
+
 }
 
 	char  *pMsgTopic = "topic/test";
@@ -133,18 +148,23 @@ int main (int argc, char *argv[])
 	}
 
 	if (iService == 1) {
+		int iCount;
+
 		iRet = mosquitto_connect (mosq, pHostName, MQTT_PORT, 0);
 		if (iRet) {
 			printf ("Can't connect to Mosquitto server %s\n", pHostName);
 			return 1;
 		}
 
-		sprintf (MsgBuffer, "Hello World");
+		for (iCount = 0; iCount < 10; iCount++) {
+			sprintf (MsgBuffer, "{\"item\" : \"mqtttest\", \"count\": %d  }", iCount);
 
-		iRet = mosquitto_publish (mosq, NULL, pMsgTopic, strlen (MsgBuffer), MsgBuffer, 0, false);
-		if (iRet) {
-			printf ("Can't publish to Mosquitto server %s\n", pHostName);
-			return 2;
+			iRet = mosquitto_publish (mosq, NULL, pMsgTopic, strlen (MsgBuffer), MsgBuffer, 0, false);
+			if (iRet) {
+				printf ("Can't publish to Mosquitto server %s\n", pHostName);
+				return 2;
+			}
+			sleep (1);
 		}
 	} else if (iService == 2) {
 
@@ -152,7 +172,7 @@ int main (int argc, char *argv[])
 
 		mosquitto_connect_callback_set(mosq, my_connect_callback);
 		mosquitto_message_callback_set(mosq, func);
-		iRet = mosquitto_connect_bind(mosq, pHostName, MQTT_PORT, 0, NULL);
+		iRet = mosquitto_connect(mosq, pHostName, MQTT_PORT, 0);
 		if (iRet) {
 			printf ("Can't connect to Mosquitto server %s\n", pHostName);
 		}
@@ -161,14 +181,6 @@ int main (int argc, char *argv[])
 
 	}
 
-
-	printf (" option = %d %s\n", iService, pMsgQueue);
-
-	newObj = fjson_tokener_parse ("{\"glossary\":{\"title\": \"a title\", \"count\":3 }}");
-
-	printf (" new_obj.to_string()=%s\n", fjson_object_to_json_string(newObj));
-
-	fjson_object_put(newObj);
 
 	// cleanup before exit
 	sleep (1);

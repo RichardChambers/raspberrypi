@@ -1,5 +1,5 @@
 /*
- * mqtttest [-p topic] [-h hostname]
+ * mqttpublish [-p topic] [-h hostname]
  *     -p topic       -> publish messages to topic queue topic
  *     -h hostname    -> publish broker on hostname
  *     -m topic       -> monitor ADC channel 0 and publish values read
@@ -91,6 +91,8 @@ int myAnalogRead(int spiChannel,int channelConfig,int analogChannel)
 }
 
 
+// the main thread function which samples the analog input
+// and reports the value using MQTT to the designated broker.
 void *checkSendMsg (void *pObj)
 {
 	// LEDPIN is wiringPi Pin #1 or GPIO #18
@@ -125,7 +127,7 @@ void *checkSendMsg (void *pObj)
  	
 		pwmWrite (LEDPIN, iLevel);
 
-		sprintf (MsgBuffer, "{ \"item\" : { \"title\" : \"%s\", \"count\": %d, \"level\" : %d }}", pTitle, iCount, iLevel);
+		sprintf (MsgBuffer, "{ \"item\" : \"%s\", \"count\": %d, \"level\" : %d }", pTitle, iCount, iLevel);
 		iRet = mosquitto_publish (mosq, NULL, pMsgTopic, strlen (MsgBuffer), MsgBuffer, 0, false);
 		if (iRet) {
 			printf ("Can't publish to Mosquitto server\n");
