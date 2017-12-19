@@ -32,6 +32,8 @@ See as well the following:
  - Practical MQTT with Paho https://www.infoq.com/articles/practical-mqtt-with-paho
  - MQTT community wiki in GitHub https://github.com/mqtt/mqtt.github.io/wiki
  - Adafruit Message Queue Telemetry Transport https://learn.adafruit.com/adafruit-io/mqtt-api
+ - Simple Messaging with MQTT (Java) https://www.oracle.com/corporate/features/simple-messaging-with-mqtt.html
+ -Reliable message delivery with Mosquitto (MQTT) https://www.electricmonk.nl/log/2017/02/20/reliable-message-delivery-with-mosquitto-mqtt/
  
  For explorations into the underlying MQTT protocol see the following:
   - IoT – MQTT Publish and Subscriber C Code https://blog.feabhas.com/2012/04/iot-mqtt-publish-and-subscriber-c-code/
