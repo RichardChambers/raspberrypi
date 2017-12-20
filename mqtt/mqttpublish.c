@@ -104,7 +104,7 @@ void *checkSendMsg (void *pObj)
 	int channelConfig = CHAN_CONFIG_SINGLE;
 
 	struct mosquitto *mosq = pObj;
-	char  *pTitle = "A Title";
+	char  *pDevice = "DEV-101-23";
 	int   iCount = 0;
 	int   iRet = 0;
 	char  MsgBuffer[512] = {0};
@@ -123,11 +123,13 @@ void *checkSendMsg (void *pObj)
         pwmSetRange (1024);
 
 	do {
+		char DateString[24] = "Dec-12-2017 10:06:32";
+
 		int iLevel = myAnalogRead(spiChannel, channelConfig, analogChannel - 1);
  	
 		pwmWrite (LEDPIN, iLevel);
 
-		sprintf (MsgBuffer, "{ \"item\" : \"%s\", \"count\": %d, \"level\" : %d }", pTitle, iCount, iLevel);
+		sprintf (MsgBuffer, "{ \"device\" : \"%s\", \"datetime\": \"%s\", \"count\": %d, \"level\" : %d }", pDevice, DateString, iCount, iLevel);
 		iRet = mosquitto_publish (mosq, NULL, pMsgTopic, strlen (MsgBuffer)+1, MsgBuffer, 0, false);
 		if (iRet) {
 			printf ("Can't publish to Mosquitto server\n");
