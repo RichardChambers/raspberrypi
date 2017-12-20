@@ -78,6 +78,7 @@ void my_connect_callback(struct mosquitto *mosq, void *obj, int result)
 	struct mosq_config *cfg;
 
 	if (result == 0) {
+		printf (" callback \n");
 		mosquitto_subscribe(mosq, NULL, pMsgTopic, 0);
 	}
 }
@@ -150,7 +151,7 @@ int main (int argc, char *argv[])
 	if (iService == 1) {
 		int iCount;
 
-		iRet = mosquitto_connect (mosq, pHostName, MQTT_PORT, 0);
+		iRet = mosquitto_connect (mosq, pHostName, MQTT_PORT, 5);
 		if (iRet) {
 			printf ("Can't connect to Mosquitto server %s\n", pHostName);
 			return 1;
@@ -159,6 +160,9 @@ int main (int argc, char *argv[])
 		for (iCount = 0; iCount < 10; iCount++) {
 			sprintf (MsgBuffer, "{\"item\" : \"mqtttest\", \"count\": %d  }", iCount);
 
+			// specify a value of 5 for keepalive. must be other than 0.
+			// with a value of 0 we are seeing reconnect attempts regularly.
+			// unless there is enough traffic to prevent communication pings.
 			iRet = mosquitto_publish (mosq, NULL, pMsgTopic, strlen (MsgBuffer), MsgBuffer, 0, false);
 			if (iRet) {
 				printf ("Can't publish to Mosquitto server %s\n", pHostName);
@@ -172,7 +176,10 @@ int main (int argc, char *argv[])
 
 		mosquitto_connect_callback_set(mosq, my_connect_callback);
 		mosquitto_message_callback_set(mosq, func);
-		iRet = mosquitto_connect(mosq, pHostName, MQTT_PORT, 0);
+		// specify a value of 5 for keepalive. must be other than 0.
+		// with a value of 0 we are seeing reconnect attempts regularly.
+		// unless there is enough traffic to prevent communication pings.
+		iRet = mosquitto_connect(mosq, pHostName, MQTT_PORT, 5);
 		if (iRet) {
 			printf ("Can't connect to Mosquitto server %s\n", pHostName);
 		}

@@ -128,13 +128,13 @@ void *checkSendMsg (void *pObj)
 		pwmWrite (LEDPIN, iLevel);
 
 		sprintf (MsgBuffer, "{ \"item\" : \"%s\", \"count\": %d, \"level\" : %d }", pTitle, iCount, iLevel);
-		iRet = mosquitto_publish (mosq, NULL, pMsgTopic, strlen (MsgBuffer), MsgBuffer, 0, false);
+		iRet = mosquitto_publish (mosq, NULL, pMsgTopic, strlen (MsgBuffer)+1, MsgBuffer, 0, false);
 		if (iRet) {
 			printf ("Can't publish to Mosquitto server\n");
 			break;
 		}
 		iCount++;
-		sleep (1);
+		sleep(1);
 	} while (1);
 
 	close (myFd) ;
@@ -168,13 +168,16 @@ int main (int argc, char *argv[])
 
 
 	mosquitto_lib_init();
-	mosq = mosquitto_new (NULL, true, NULL);
+	mosq = mosquitto_new ("1234", true, NULL);
 	if (! mosq) {
 		printf (" Error: Unable to initialize Mosquitto library.\n");
 		return 1;
 	}
 
-	iRet = mosquitto_connect (mosq, pHostName, MQTT_PORT, 0);
+        // specify a value of 5 for keepalive. must be other than 0.
+        // with a value of 0 we are seeing reconnect attempts regularly.
+        // unless there is enough traffic to prevent communication pings.
+	iRet = mosquitto_connect (mosq, pHostName, MQTT_PORT, 5);
 	if (iRet) {
 		printf ("Can't connect to Mosquitto server %s\n", pHostName);
 		return 1;
