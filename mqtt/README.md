@@ -74,3 +74,10 @@ The FastJSON development library can be installed using apt-get. See https://git
  - sudo apt-get install libfastjson-dev
 
 There is also GLIB JSON https://wiki.gnome.org/Projects/JsonGlib
+
+### Adding SQLite3 for a database engine
+
+The SQLite3 database engine, embedded engine, provides a nice SQL database engine which supports a good subset of SQL.
+
+To install the development libraries and headers for C development:
+ - sudo apt-get install libsqlite3-dev
