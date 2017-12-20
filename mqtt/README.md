@@ -17,12 +17,20 @@ these utilities running in its own terminal window for testing.
  - mosquitto_sub -t "topic/test"
  - mosquitto_pub -t "topic/test"
 
+### Protocol alternatives
+
 MQTT is one of several types of publish/subscribe messaging protocols. Some messaging
 protocols are heavier than MQTT offering more services. The following article provides
-an overview of three of the most commonly used protocols: AMQP, MQTT, and STOMP.
+an overview of three of the most commonly used protocols: AMQP, MQTT, and STOMP. There is CoAP as well
 
 Choosing your messaging protocoll: AMQP, MQTT, or STOMP
 https://blogs.vmware.com/vfabric/2013/02/choosing-your-messaging-protocol-amqp-mqtt-or-stomp.html
+
+STOMP materials are at https://stomp.github.io/
+
+AMQP materials are at https://www.amqp.org/
+
+CoAP materials are at http://coap.technology/
 
 See as well the following:
 
