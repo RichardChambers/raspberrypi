@@ -32,6 +32,9 @@ AMQP materials are at https://www.amqp.org/
 
 CoAP materials are at http://coap.technology/
 
+CBOR materials are at http://cbor.io/
+
+
 See as well the following:
 
  - All About Messaging Protocols: What Are the Differences? http://www.eejournal.com/article/20150420-protocols/
