@@ -30,6 +30,10 @@
 // queue supported by a mosquitto MQTT broker.
 #include <mosquitto.h>
 
+// include the SQLite3 library for embedded database engine.
+// we will be taking in the JSON messages and storing the
+// data in an SQLite3 database.
+#include <sqlite3.h>
 
 #define MQTT_PORT 1883
 
@@ -48,29 +52,50 @@ int iswitch (char **arg)
 	}
 }
 
+sqlite3 *db = 0;
+
 void func(struct mosquitto *mosq, void *userdata, const struct mosquitto_message *m)
 {
+	static int xCount = 0;
 	char *ud = (char *)userdata;
 	fjson_object *newObj = NULL;
 	fjson_object *o = NULL;
+	fjson_object *l = NULL;
 	char  *field = "count";
+	char  *field2 = "level";
 	int   iCount = -1;
 	int   iLevel = -1;
 
 	newObj = fjson_tokener_parse (m->payload);
+	if (!fjson_object_object_get_ex(newObj, field2, &l)) {
+		printf("Field %s does not exist\n", field2);
+	} 
 	if (!fjson_object_object_get_ex(newObj, field, &o)) {
 		printf("Field %s does not exist\n", field);
 	} else {
 
-		printf (" new_obj.to_string()=%s  \"%s\" = %d\n", fjson_object_to_json_string(newObj),
-			field, fjson_object_get_int(o));
+		printf (" new_obj.to_string()=%s  \"%s\" = %d -> %d\n", fjson_object_to_json_string(newObj),
+			field, fjson_object_get_int(o), fjson_object_get_int(l));
+
+	if (db) {
+		char *pErrorMsg;
+		int rc = 0;
+		char InsertStmt [521] = {0};
+		sprintf (InsertStmt, 
+			"insert into temps (myDevice, myDate, myTemp) VALUES (\"%s\", \"%4.4d\", %d);",
+			"DEV-01", fjson_object_get_int(o), fjson_object_get_int(l)); 
+		rc = sqlite3_exec (db, InsertStmt, NULL, NULL, &pErrorMsg);
+		if (rc) {
+			printf ("error with insert %s\n", pErrorMsg);
+		}
+	}
 	}
 
 	fjson_object_put(newObj);
 
 }
 
-	char  *pMsgTopic = "topic/test";
+char  *pMsgTopic = "topic/test";
 
 void my_connect_callback(struct mosquitto *mosq, void *obj, int result)
 {
@@ -174,6 +199,25 @@ int main (int argc, char *argv[])
 
 		printf (" option = %d %s\n", iService, pMsgQueue);
 
+		int rc = remove ("mytest.db");
+		if (rc) {
+			printf ("Error remove %d\n", rc);
+		}
+
+		rc = sqlite3_open ("mytest.db", &db);
+		if (rc) {
+			printf ("Can't open database: %d\n", rc);
+			db = 0;
+		} else {
+			char *pErrorMsg;
+			char CreateStmt [521] = 
+			"create table temps (myDevice text key NOT NULL, myDate text key NOT NULL, myTemp INT);";
+			int rc = sqlite3_exec (db, CreateStmt, NULL, NULL, &pErrorMsg);
+			if (rc) {
+				printf ("error with create db %s\n", pErrorMsg);
+			}
+		}
+
 		mosquitto_connect_callback_set(mosq, my_connect_callback);
 		mosquitto_message_callback_set(mosq, func);
 		// specify a value of 5 for keepalive. must be other than 0.
@@ -196,6 +240,10 @@ int main (int argc, char *argv[])
 	mosquitto_destroy (mosq);
 	sleep (1);
 	mosquitto_lib_cleanup();
+
+	if (db) {
+		sqlite3_close(db);
+	}
 
 	return 0;
 }
