@@ -29,6 +29,10 @@ Remove After Washing label on Piezo buzzer - https://electronics.stackexchange.c
 
 ### Communication protocols
 
+This slide share package of some 60 slides does a compare and contrast between four different IoT protocols
+looking at the needs of two different IoT groups, Consumers and Industrial, which have differing needs
+for reliability and robustness. [What's the Right Messaging Standard for the IoT?](https://www.slideshare.net/Angelo.Corsaro/whats-the-right-messaging-standard-for-the-iot).
+
 #### MQTT
 
 MQTT Protocol Overview -Beginners Guide http://www.steves-internet-guide.com/mqtt/
@@ -41,3 +45,8 @@ RabbitMQ https://www.rabbitmq.com/
 
 VerneMQ https://vernemq.com/
 
+### CoAP
+
+CoAP web site http://coap.technology/
+
+CoAP Messaging in Depth http://programmingwithreason.com/article-iot-coap.html
