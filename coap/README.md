@@ -9,3 +9,6 @@ This is an interesting article about CoAP, [Constrained Application Protocol: Co
 
 
 [CoAP Messaging in Depth](http://programmingwithreason.com/article-iot-coap.html) has an explanation of the CoAP protocol.
+
+See also the github repository http://github.com/obgm/libcoap
+
