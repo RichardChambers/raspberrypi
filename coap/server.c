@@ -144,6 +144,9 @@ int main(int argc, char* argv[])
 			// dispatch the read for processing.
 			coap_read( ctx );
 		} 
+		else {
+			printf ("\nselect() returned, no read.");
+		}
 	}
 
 	return 0;

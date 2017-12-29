@@ -60,6 +60,12 @@ message_handler(struct coap_context_t *ctx, const coap_endpoint_t *local_interfa
 
 			printf("Received: %s -> item = %d\n", data, iItem);
 		}
+		else {
+			printf ("\ncoap_get_data() failed.\n");
+		}
+	}
+	else {
+		printf("\nCOAP_RESPONSE_CLASS() unknown.\n");
 	}
 }
 
@@ -98,8 +104,11 @@ int main(int argc, char* argv[])
 	dst_addr.addr.sin.sin_port        = htons(5683);
 	dst_addr.addr.sin.sin_addr.s_addr = inet_addr("127.0.0.1");
 
-	/* Prepare the request */
+	/* Prepare the request. We allow both a hello which works
+	 * and a goodbye which does not.
+	 */
 	server_uri = serverhello_uri;
+	if (argc > 1) server_uri = servergoodbye_uri;
 	coap_split_uri(server_uri, strlen(server_uri), &uri);
 	request            = coap_new_pdu();	
 	request->hdr->type = COAP_MESSAGE_CON;
