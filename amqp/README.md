@@ -6,5 +6,7 @@ by RabbitMQ messaging broker.
 It appears that a good staring point is the package `librabbitmq-dev` per this article
 on Debian https://packages.debian.org/jessie/librabbitmq-dev
 
+See https://github.com/alanxz/rabbitmq-c with sample programs and documentation for librabbitmq.
+
 The easiest test environment seems to be to install RabbitMQ on a Linux machine to act as
 a server.
