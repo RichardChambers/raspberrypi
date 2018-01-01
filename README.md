@@ -33,6 +33,44 @@ This slide share package of some 60 slides does a compare and contrast between f
 looking at the needs of two different IoT groups, Consumers and Industrial, which have differing needs
 for reliability and robustness. [What's the Right Messaging Standard for the IoT?](https://www.slideshare.net/Angelo.Corsaro/whats-the-right-messaging-standard-for-the-iot).
 
+There are several message broker server alternatives with RabbitMQ being one of the most well known.
+
+RabbitMQ https://www.rabbitmq.com/
+
+VerneMQ https://vernemq.com/
+
+Apache ActiveMQ http://activemq.apache.org/
+
+#### Protocol alternatives
+
+The following article provides an overview of three of the most commonly used
+protocols: AMQP, MQTT, and STOMP. There is CoAP as well
+
+Choosing your messaging protocoll: AMQP, MQTT, or STOMP
+https://blogs.vmware.com/vfabric/2013/02/choosing-your-messaging-protocol-amqp-mqtt-or-stomp.html
+
+STOMP materials are at https://stomp.github.io/
+
+AMQP materials are at https://www.amqp.org/
+
+CoAP materials are at http://coap.technology/
+
+CBOR materials are at http://cbor.io/
+
+See as well the following:
+
+ - All About Messaging Protocols: What Are the Differences? http://www.eejournal.com/article/20150420-protocols/
+ - IoT Standards and Protocols https://www.postscapes.com/internet-of-things-protocols/
+ - MQTT and CoAP, IoT Protocols https://www.eclipse.org/community/eclipse_newsletter/2014/february/article2.php
+ - Practical MQTT with Paho https://www.infoq.com/articles/practical-mqtt-with-paho
+ - MQTT community wiki in GitHub https://github.com/mqtt/mqtt.github.io/wiki
+ - Adafruit Message Queue Telemetry Transport https://learn.adafruit.com/adafruit-io/mqtt-api
+ - Simple Messaging with MQTT (Java) https://www.oracle.com/corporate/features/simple-messaging-with-mqtt.html
+ - Reliable message delivery with Mosquitto (MQTT) https://www.electricmonk.nl/log/2017/02/20/reliable-message-delivery-with-mosquitto-mqtt/
+ 
+ For explorations into the underlying MQTT protocol see the following:
+  - IoT – MQTT Publish and Subscriber C Code https://blog.feabhas.com/2012/04/iot-mqtt-publish-and-subscriber-c-code/
+
 #### MQTT
 
 MQTT Protocol Overview -Beginners Guide http://www.steves-internet-guide.com/mqtt/
@@ -40,10 +78,6 @@ MQTT Protocol Overview -Beginners Guide http://www.steves-internet-guide.com/mqt
 MQTT 101 – How to Get Started with the lightweight IoT Protocol https://www.hivemq.com/blog/how-to-get-started-with-mqtt
 
 Getting started with MQTT https://dzone.com/refcardz/getting-started-with-mqtt
-
-RabbitMQ https://www.rabbitmq.com/
-
-VerneMQ https://vernemq.com/
 
 ### CoAP
 
