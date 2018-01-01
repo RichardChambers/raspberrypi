@@ -21,8 +21,14 @@ The RabbitMQ default port is 5672.
 ## RabbitMQ setup and configuration
 
 After installing `librabbitmq-server` you will need to set up a RabbitMQ user using the `rabbitmqctl` utility.
+
+Typically using the `rabbitmqctl` utility requires `sudo`.
+
 See [rabbitmqctl](https://www.rabbitmq.com/rabbitmqctl.8.html) which has a list of the commands and the
 command syntax. The specific command to create a user is `sudo rabbitmqctl add_user user password`.
+
+If you type just the name of the utility with no command line arguments, a help listing will be generted so
+if you type `rabbitmqctl` and press the Enter key, a command line synopsis will be displayed.
 
 Logs for RabbitMQ are by default in /var/log/rabbitmq and these logs can be helpful in troubleshooting
 problems and errors.
@@ -37,4 +43,4 @@ The command to create a user is `sudo rabbitmqctl add_user user password`.
 
 For an error of "access to vhost '/' refused for user 'guest'" see https://stackoverflow.com/questions/17054533/allowing-rabbitmq-server-connections
 
-The command to set user permissions is `rabbitmqctl set_permissions -p / user ".*" ".*" ".*"`
+The command to set user permissions is `sudo rabbitmqctl set_permissions -p / user ".*" ".*" ".*"`
