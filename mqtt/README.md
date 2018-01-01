@@ -17,6 +17,9 @@ these utilities running in its own terminal window for testing.
  - mosquitto_sub -t "topic/test"
  - mosquitto_pub -t "topic/test"
 
+Security for software is always a consideration. See this StackExchange posting about
+[What simple security tests can I perform on my MQTT network?](https://iot.stackexchange.com/questions/452/what-simple-security-tests-can-i-perform-on-my-mqtt-network).
+
 ### Protocol alternatives
 
 MQTT is one of several types of publish/subscribe messaging protocols. Some messaging
@@ -26,19 +29,7 @@ an overview of three of the most commonly used protocols: AMQP, MQTT, and STOMP.
 Choosing your messaging protocoll: AMQP, MQTT, or STOMP
 https://blogs.vmware.com/vfabric/2013/02/choosing-your-messaging-protocol-amqp-mqtt-or-stomp.html
 
-STOMP materials are at https://stomp.github.io/
-
-AMQP materials are at https://www.amqp.org/
-
-CoAP materials are at http://coap.technology/
-
-CBOR materials are at http://cbor.io/
-
-
 See as well the following:
-
- - All About Messaging Protocols: What Are the Differences? http://www.eejournal.com/article/20150420-protocols/
- - IoT Standards and Protocols https://www.postscapes.com/internet-of-things-protocols/
  - MQTT and CoAP, IoT Protocols https://www.eclipse.org/community/eclipse_newsletter/2014/february/article2.php
  - Practical MQTT with Paho https://www.infoq.com/articles/practical-mqtt-with-paho
  - MQTT community wiki in GitHub https://github.com/mqtt/mqtt.github.io/wiki
