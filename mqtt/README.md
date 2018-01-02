@@ -20,6 +20,14 @@ these utilities running in its own terminal window for testing.
 Security for software is always a consideration. See this StackExchange posting about
 [What simple security tests can I perform on my MQTT network?](https://iot.stackexchange.com/questions/452/what-simple-security-tests-can-i-perform-on-my-mqtt-network).
 
+### MQTT Keep Alive
+
+The MQTT protocol has a periodic Keep Alive or heartbeat message that is transmitted between the client
+and the broker in order for both to know that both ends are still functioning. The Keep Alive is
+used if no other MQTT messages are transmitted. Since the connection is duplex both ends of the
+MQTT connection use the Keep Alive messages to check that the other end is still functioning.
+See [MQTT Keep Alive Interval Explained](http://www.steves-internet-guide.com/mqtt-keep-alive-by-example/).
+
 ### Protocol alternatives
 
 MQTT is one of several types of publish/subscribe messaging protocols. Some messaging
