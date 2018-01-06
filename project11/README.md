@@ -13,7 +13,7 @@ material of Lesson 15.
 
 [Raspberry Pi Starter Kit Lesson 15: Raspberry Pi, Potentiometer and LCD](http://osoyoo.com/2017/07/04/raspberry-pi-potentiometer/)
 
-### Starting the project series - Lesson 13 with Lesson 9
+### tiltbuzz_1 Starting the project series - Lesson 13 with Lesson 9
 
 The first step is to take the materials developed in project 10 with the 1602 LCD display as a
 starting position and add to that solution the materials developed in project 05 with the
@@ -25,7 +25,14 @@ depending on the value of the counter mod 5 plus 1 times 400 milliseconds so the
 5 different tone lengths from 400 ms to 2000 ms (2 seconds) which are emitted in a series which is
 repeated.
 
-### Next phase - Adding Lesson 14
+Sinice the buzzer is annoying and the novelty of using it rapidly waned, I replaced the buzzer with
+an LED. The cats appreciated the change as well.
+
+The source code in `tiltbuzz_1.c` expects that the buzzer or LED is attached to BCM Pin #17 and that the
+I2C address for the 1602 LCD is 0x27. Use `sudo i2cdetect -y 1` after hooking up 1602 to the
+breadboard to see if the I2C address needs to be changed.
+
+### tiltbuzz_2 Next phase - Adding Lesson 14
 Adding Lesson 14 involves adding the tilt sensor to the circuit. Using the tilt sensor allows us an
 additional mode of user interaction, tilting or rotating the board in one plane so that the tilt
 switch indicates that the board has changed its position.
@@ -37,18 +44,30 @@ Text is displayed on the second line of the 1602 LCD Display to indicate the til
 In addition we will add an LED which will become lit when the tilt sensor indicates a tilt condition
 and then turn off when the tilt is corrected.
 
-#### Tilt Sensor
+The source code in `tiltbuzz_2.c` expects that the buzzer or LED is attached to BCM Pin #17
+(wiringPi Pin 0) and that the I2C address for the 1602 LCD is 0x27. Use `sudo i2cdetect -y 1`
+after hooking up 1602 to the breadboard to see if the I2C address needs to be changed. In
+addition the SW520D tilt switch micro-board is expected to have its data output line connect
+to BCM Pin # 27 (wiringPi Pin 2).
+
+#### SW520D Micro-board Tilt Sensor
 
 The tilt sensor included in the kit uses the SW-520D tilt switch soldered to a micro-PCB that contains
-the necessary components to provide a digital output to indicate tilt or not tilt. The input voltage
-is 5v so the 5v rail of the Raspberry Pi is used to power the tilt sensor package.
+the necessary components to provide a digital output to indicate tilt or not tilt.
+
+There are three pins on the micro-board package, VCC (5 volts), GND, and D0 (a digital data line).
+The input voltage is 5v so the 5v rail of the Raspberry Pi is used to power the tilt sensor package.
+The D0 pin is connected to a digital pin on the Raspberry Pi that is set up for `INPUT`.
 
 The `digitalRead()` function of the wiringPI library is used to determine if the tilt sensor package
-is holding the Raspberry Pi pin LOW, indicates not titled, or HIGH, indicates tilted. When the tilt
+is holding the Raspberry Pi pin LOW, indicates not tilted, or HIGH, indicates tilted. When the tilt
 switch is vertical the state is Not Tilted so the output is digital LOW. As the tilt switch is
 rotated so that the barrel of the tilt switch changes from vertical, 90 degrees or orthogonal to the
 ground or horizon, to horizontal at some point the internal balls within the barrel will move
 away from the contacts causing the state to change to Tilted so the output becomes digital HIGH.
+
+The tilt sensor needs a fairly large change in position for the little balls in the interior of the
+barrel to go from Tilted to a state of Not Tilted.
 
 ### Final phase - Adding lesson 15
 
