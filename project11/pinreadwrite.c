@@ -13,9 +13,9 @@ void pinWriteHiLo (int iPin, int iCount, int iDelayHigh, int iDelayLow)
 {
     for ( ; iCount > 0; iCount--) {
         digitalWrite (iPin, HIGH);
-        delay (iDelayHigh);
+        if (iDelayHigh > 0) delay (iDelayHigh);
         digitalWrite (iPin, LOW);
-        delay (iDelayLow);
+        if (iDelayLow > 0) delay (iDelayLow);
     }
     digitalWrite (iPin, LOW);
 }
@@ -24,13 +24,17 @@ void pinWriteLoHi (int iPin, int iCount, int iDelayLow, int iDelayHigh)
 {
     for ( ; iCount > 0; iCount--) {
         digitalWrite (iPin, LOW);
-        delay (iDelayHigh);
+        if (iDelayLow > 0) delay (iDelayLow);
         digitalWrite (iPin, HIGH);
-        delay (iDelayLow);
+        if (iDelayHigh > 0) delay (iDelayHigh);
     }
     digitalWrite (iPin, HIGH);
 }
 
+void pinWrite (int iPin, int iLevel)
+{
+    digitalWrite (iPin, ((iLevel > 0) ? HIGH : LOW));
+}
 
 int pinRead (int iPin)
 {

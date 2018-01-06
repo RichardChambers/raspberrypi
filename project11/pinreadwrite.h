@@ -6,6 +6,8 @@
 // the pin to the specified level, HIGH or LOW, for its initial conditions.
 void pinSetupWrite (int iPin, int iLevel);
 
+void pinWrite (int iPin, int iLevel);
+
 // for the number of times specified by the value of iCount, vary
 // the signal level of the specified pin.
 // These two functions have a loop where the output level of the pin
