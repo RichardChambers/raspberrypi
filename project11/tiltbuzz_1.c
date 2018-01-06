@@ -8,15 +8,16 @@
 
 int main (int argc, char *argv[])
 {
-        // BUZZPIN is wiringPi Pin #1 or physical pin #12 or GPIO #18
+        // BUZZPIN is wiringPi Pin #0 or physical pin #11 or GPIO #17
         int BUZZPIN = 0;
+	int LCDAddrs = 0x27;   // may be 0x37 instead.
 
 	if (wiringPiSetup() == -1) {
 		printf ("Setup wiringPi Failed!\n");
 		return -1;
 	}
 
-	lcd1602Open (0x27);
+	lcd1602Open (LCDAddrs);
 
 	pinSetupWrite (BUZZPIN, LOW);
 
