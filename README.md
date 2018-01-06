@@ -25,6 +25,12 @@ See the Wiki page about the Broadcom board and the GPIO interface.
 
 Remove After Washing label on Piezo buzzer - https://electronics.stackexchange.com/questions/98556/remove-after-washing-on-piezo-buzzer
 
+Tutorial on Serial Communications https://learn.sparkfun.com/tutorials/serial-communication
+
+Tutorial on Serial Peripheral Interface (SPI) https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi
+
+Tutorial on Inter-integrated Circuit (I2C) https://learn.sparkfun.com/tutorials/i2c
+
 ## Additional technologies to investigate
 
 ### Communication protocols
