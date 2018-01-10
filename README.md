@@ -31,6 +31,12 @@ Tutorial on Serial Peripheral Interface (SPI) https://learn.sparkfun.com/tutoria
 
 Tutorial on Inter-integrated Circuit (I2C) https://learn.sparkfun.com/tutorials/i2c
 
+Tutorial on Pull-up Resistors https://learn.sparkfun.com/tutorials/pull-up-resistors
+
+The answers to this question are quite educational about pull-up resistors. How do I calculate the required value for a pull-up resistor? https://electronics.stackexchange.com/questions/23645/how-do-i-calculate-the-required-value-for-a-pull-up-resistor
+
+Also on pull-up resistors, I2C Bus Pullup Resistor Calculation http://www.ti.com/lit/an/slva689/slva689.pdf
+
 ## Additional technologies to investigate
 
 ### Communication protocols
