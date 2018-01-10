@@ -1,8 +1,8 @@
 
-clean: 
-	rm tiltbuzz_1 tiltbuzz_2 tiltbuzz_3
-
 all: tiltbuzz_1 tiltbuzz_2 tiltbuzz_3
+
+clean: 
+	rm -f tiltbuzz_1 tiltbuzz_2 tiltbuzz_3
 
 tiltbuzz_1: tiltbuzz_1.c lcd1602.c pinreadwrite.c
 	cc -o tiltbuzz_1 tiltbuzz_1.c lcd1602.c pinreadwrite.c -lwiringPi
