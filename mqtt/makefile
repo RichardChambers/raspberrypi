@@ -6,6 +6,11 @@
 #   libfastjson is the Fast JSON library for JSON text handling
 #      use sudo apt-get install libfastjson-dev
 
+all: mqtttest mqttpublish
+
+clean: 
+	rm -f mqtttest mqttpublish
+
 mqtttest: mqtttest.c
 	cc -o mqtttest mqtttest.c -lmosquitto -lfastjson -lsqlite3
 

@@ -90,6 +90,12 @@ int myAnalogRead(int spiChannel,int channelConfig,int analogChannel)
     return ( (buffer[1] & 3 ) << 8 ) + buffer[2]; // get last 10 bits
 }
 
+// simple function to test using the pThread library
+void *testThread (void *pObj)
+{
+	for (int i = 0; i < 20; i++) {printf ("testThread loop %d\n", i);delay (1000); }
+	return pObj;
+}
 
 // the main thread function which samples the analog input
 // and reports the value using MQTT to the designated broker.
@@ -105,7 +111,6 @@ void *checkSendMsg (void *pObj)
 
 	struct mosquitto *mosq = pObj;
 	char  *pDevice = "DEV-101-23";
-	int   iCount = 0;
 	int   iRet = 0;
 	char  MsgBuffer[512] = {0};
 
@@ -122,6 +127,9 @@ void *checkSendMsg (void *pObj)
         pwmSetClock (400);
         pwmSetRange (1024);
 
+	printf ("beginning pin read and publish loop.\n");
+
+	int   iCount = 0;
 	do {
 		char DateString[24] = "Dec-12-2017 10:06:32";
 
@@ -137,7 +145,7 @@ void *checkSendMsg (void *pObj)
 		}
 		iCount++;
 		sleep(1);
-	} while (1);
+	} while (iCount < 20);
 
 	close (myFd) ;
 
@@ -148,6 +156,7 @@ void *checkSendMsg (void *pObj)
 	pinMode(LEDPIN, INPUT);
 	digitalWrite (LEDPIN, LOW);
 
+	printf ("thread exit.\n");
 	return pObj;
 }
 
@@ -192,7 +201,7 @@ int main (int argc, char *argv[])
 
 	iRet = pthread_create (&levelsThread, NULL, checkSendMsg, mosq);
 
-	sleep (10);
+	pthread_join (levelsThread, NULL);
 
 	// cleanup before exit
 	sleep (1);
