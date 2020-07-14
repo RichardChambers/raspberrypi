@@ -21,7 +21,25 @@ WARNING: Be careful about the pins connected and used in experiments. The Raspbe
 
 See the Wiki page about the Broadcom board and the GPIO interface.
 
+## Using a breadboard
+
+Breadboarding guidelines - http://nreeder.com/eet1131/breadboardingTips.htm
+
+### Using two breadboards together for large package microcontrollers
+
+Most plastic breadboard are actually three pieces that are connected together with an adhesive backing securing the three pieces into a single board. The ability to separate these three pices can make breadboards a bit more flexible with unusual sized components.
+
+There are two power rail sections, one on each side, which each have two columns (+ column and - column) of tie points that are vertically connected. Each row has a tie point to provide a power point and a ground point. This arrangement allows multiple tie points to access the power rail on each side.
+
+The middle section is a single piece with a gutter down the middle to electrically isolate the sub-sections on each side of the central gutter. The idea is that one power rail is used to provide power and ground to one side of the gutter and the other power rail to provide power and ground for the other side of the gutter.
+
+With some microelectronics such as the ESP32 microcontroller the distance between the pins on each side of the physical package are so large that it will not fit properly on the middle section of a breadboard across the gutter so that you have access to the pins on each side while the pins are also isolated.
+
+One approach is to use two breadboards togther to create a gap of the necessary width. However with most breadboards the width of the power rail section is sufficient as to make this appoach unworkable due to the width of the two power rail sections that are side by side. One solution is to take one of the two breadboards and remove one of the power rail sections. Then the two breadboards can be used together such that instead of having a gap that is as wide as two power rail sections, you now have a gap as wide as a single power rail section.
+
 ## Various notes
+
+Nick Reeder's Home page with access to various electronics topics - http://nreeder.com/
 
 Remove After Washing label on Piezo buzzer - https://electronics.stackexchange.com/questions/98556/remove-after-washing-on-piezo-buzzer
 
