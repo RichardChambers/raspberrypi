@@ -21,6 +21,13 @@ WARNING: Be careful about the pins connected and used in experiments. The Raspbe
 
 See the Wiki page about the Broadcom board and the GPIO interface.
 
+### Note for Orange Pi 5
+
+These may also work with an Orange Pi 5 using the wiringOP library at https://github.com/orangepi-xunlong/wiringOP instead of wiringPi library.
+
+I have just purchased an Orange Pi 5 Plus and have Ubuntu running on it. I plan to run a few tests with some of these projects. The Orange Pi 5 seems
+to have a similar physical pinout for the 40 GPIO pins as the Raspberry Pi 3 however the pin addressing is a bit different.
+
 ## Using a breadboard
 
 Breadboarding guidelines - http://nreeder.com/eet1131/breadboardingTips.htm
