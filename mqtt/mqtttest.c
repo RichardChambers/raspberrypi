@@ -3,6 +3,7 @@
  *     -p msgqueue    -> publish messages to message queue msgqueue
  *     -s msgqueue    -> subscribe to message queue msgqueue
  *     -h hostname    -> publish or subscribe to broker on hostname
+ *     -d             -> dump the SQLite database to standard output
  *
  * You can use the standard mosquitto utilities to assist with testing
  * of this application using the standard utilities in another terminal
@@ -47,6 +48,9 @@ int iswitch (char **arg)
 	}
 	else if (strcmp (*arg, "-h") == 0) {
 		return 3;
+	}
+	else if (strcmp (*arg, "-d") == 0) {
+		return 4;
 	} else {
 		return 0;
 	}
@@ -59,6 +63,7 @@ int helptext(void) {
 	printf("    -p msgqueue    -> publish messages to message queue msgqueue\n");
 	printf("    -s msgqueue    -> subscribe to message queue msgqueue\n");
 	printf("    -h hostname    -> publish or subscribe to broker on hostname\n");
+	printf("    -d             -> dump the SQLite database to standard output\n");
 }
 
 void func(struct mosquitto *mosq, void *userdata, const struct mosquitto_message *m)
@@ -115,6 +120,36 @@ void my_connect_callback(struct mosquitto *mosq, void *obj, int result)
 	}
 }
 
+int dumpcallback(void *NotUsed, int argc, char **argv, char **azColName) {
+	NotUsed = 0;
+    
+	for (int i = 0; i < argc; i++) {
+		printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+	}
+    
+	printf("\n");
+
+	return 0;
+}
+
+int dumpdatabase (void) {
+	int rc;
+
+	rc = sqlite3_open ("mytest.db", &db);
+	if (rc) {
+		printf ("Can't open database: %d\n", rc);
+		db = 0;
+	} else {
+		char *pErrorMsg;
+		char SelectStmt [521] = 
+		"select myDevice, myDate, myTemp from temps;";
+		int rc = sqlite3_exec (db, SelectStmt, dumpcallback, NULL, &pErrorMsg);
+		if (rc) {
+			printf ("error with create db %s\n", pErrorMsg);
+		}
+	}
+	return 0;
+}
 
 int main (int argc, char *argv[])
 {
@@ -182,6 +217,9 @@ int main (int argc, char *argv[])
 					return 3;
 				}
 				break;
+			case 4:   // -d
+				dumpdatabase ();
+				return 0;
 			default:
 				break;
 		}
