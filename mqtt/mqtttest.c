@@ -54,6 +54,13 @@ int iswitch (char **arg)
 
 sqlite3 *db = 0;
 
+int helptext(void) {
+	printf("mqtttest [-ps msgqueue] [-h hostname]\n");
+	printf("    -p msgqueue    -> publish messages to message queue msgqueue\n");
+	printf("    -s msgqueue    -> subscribe to message queue msgqueue\n");
+	printf("    -h hostname    -> publish or subscribe to broker on hostname\n");
+}
+
 void func(struct mosquitto *mosq, void *userdata, const struct mosquitto_message *m)
 {
 	static int xCount = 0;
@@ -124,6 +131,10 @@ int main (int argc, char *argv[])
 
 	char  MsgBuffer[512] = {0};
 
+	if (argc < 2) {
+		helptext();
+		return 3;
+	}
 	mosquitto_lib_init();
 	mosq = mosquitto_new (NULL, true, NULL);
 	if (! mosq) {
@@ -135,6 +146,9 @@ int main (int argc, char *argv[])
 		char **argline = argv + 1;
 
 		switch (iswitch(argline)) {
+			case 0:
+				helptext();
+				return 3;
 			case 1:     // -p
 				iService = 1;
 				argline++;
