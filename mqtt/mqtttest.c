@@ -193,6 +193,7 @@ int main (int argc, char *argv[])
 				printf ("Can't publish to Mosquitto server %s\n", pHostName);
 				return 2;
 			}
+			printf("publish: count %d\n", iCount);
 			sleep (1);
 		}
 	} else if (iService == 2) {
